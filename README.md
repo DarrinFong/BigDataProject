@@ -31,6 +31,6 @@ The two algorithms briefly described above will build the foundation for a deepe
 
 ## References
 - The following link contains the information about the technology chosen by the team, as you can see it supports classification, regression, and clustering which supports our underlying algorithms. : https://scikit-learn.org/stable/
-- More specificaly for random forest : https://scikit-learn.org/stable/modules/ensemble.html#forests-of-randomized-trees
-- More specificaly for k-nearest neighbors (KNN) : https://scikit-learn.org/stable/modules/neighbors.html
+- More specifically for random forest : https://scikit-learn.org/stable/modules/ensemble.html#forests-of-randomized-trees
+- More specifically for k-nearest neighbors (KNN) : https://scikit-learn.org/stable/modules/neighbors.html
 - The following link contains a dataset that enables us to analyse wildfire data in canada in terms of number of fires by jurisdiction, cause class, response category, and protection zone. : http://www.nfdp.ccfm.org/en/data/fires.php
