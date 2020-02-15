@@ -29,6 +29,14 @@ To prove our hypothesis, we will use the k-nearest neighbors (KNN) algorithm to 
 
 The two algorithms briefly described above will build the foundation for a deeper understanding of our case study. Based on those models, we will be able to determine the impact of each component and their proponents in creating an occurrence.    
 
+## Materials and Methods
+For both algorithms that need to be implemented for this project, Scikit-Learn seems to be the better choice as it supports classification, regression, and clustering which greatly simplifies the implementation of the k-nearest neighbors (KNN) and random forest algorithms. 
+
+As stated previously, the two algorithms selected for the evaluation are the k-nearest neighbors (KNN) and random forest algorithms. 
+
+As for datasets, our primary dataset will be the National Forestry Database, which will give us access to information about canadian forest fires by month, jurisdiction (province), cause and size amongst other classifications. 
+
+
 ## References
 - The following link contains the information about the technology chosen by the team, as you can see it supports classification, regression, and clustering which supports our underlying algorithms. : https://scikit-learn.org/stable/
 - More specifically for random forest : https://scikit-learn.org/stable/modules/ensemble.html#forests-of-randomized-trees
