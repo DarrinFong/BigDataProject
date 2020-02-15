@@ -27,5 +27,8 @@ It is widely assumed that humans are responsible for a majority of the wildfires
 
 To prove our hypothesis, we will use the k-nearest neighbors (KNN) algorithm to create an interface that will evaluate the probability of a wildfire occurring based on a set of information such as weather in the last month, average campsite per kilometer square and forest composition. In parallel, we will use the random forest algorithm to predict the new location of the new occurrences. 
 
-The two algorithms briefly described above will build the foundation for a deeper understanding of our case study. Based on those models, we will be able to determine the impact of each component and their proponents in creating an occurrence.   
+The two algorithms briefly described above will build the foundation for a deeper understanding of our case study. Based on those models, we will be able to determine the impact of each component and their proponents in creating an occurrence.    
 
+## References
+- The following link contains the information about the technology chosen by the team, as you can see it supports classification, regression, and clustering which supports our underlying algorithms. : https://scikit-learn.org/stable/
+- The following link contains a dataset that enables us to analyse wildfire data in canada in terms of number of fires by jurisdiction, cause class, response category, and protection zone. : http://www.nfdp.ccfm.org/en/data/fires.php
