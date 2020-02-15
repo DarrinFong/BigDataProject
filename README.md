@@ -21,3 +21,11 @@ This repository will contain our work for the SOEN-499 project.
  precipitations, increase of campsite usage, and increase in lumber
  harvesting will contribute on their own to the occurrence and
  intensity of forest fires.
+ 
+## Introduction
+It is widely assumed that humans are responsible for a majority of the wildfires taking place in the last years. Our hypothesis is that the use of pesticides to reduce the number of conifers in our forest, the increase of campsite usage, the increase in lumber harvesting and the lack of precipitation are contributing to the occurrence and intensity of forest fire. 
+
+To prove our hypothesis, we will use the k-nearest neighbors (KNN) algorithm to create an interface that will evaluate the probability of a wildfire occurring based on a set of information such as weather in the last month, average campsite per kilometer square and forest composition. In parallel, we will use the random forest algorithm to predict the new location of the new occurrences. 
+
+The two algorithms briefly described above will build the foundation for a deeper understanding of our case study. Based on those models, we will be able to determine the impact of each component and their proponents in creating an occurrence.   
+
