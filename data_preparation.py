@@ -20,7 +20,3 @@ def dataParallelization():
         .option('header', 'true')\
         .load("./data/hotel_bookings.csv")
     return df
-
-
-
-listUniqueValuesByColumn()
