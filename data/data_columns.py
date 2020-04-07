@@ -1,4 +1,4 @@
-all_columns = [
+data_columns = [
     "hotel",
     "is_canceled",
     "lead_time",

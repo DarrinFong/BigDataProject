@@ -1,7 +1,6 @@
 from pyspark.rdd import RDD
 from pyspark.sql import DataFrame
 from pyspark.sql import SparkSession
-from data_columns import all_columns
 
 
 def initSpark():
