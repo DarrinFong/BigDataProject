@@ -7,13 +7,22 @@ from data.data_type_by_column import type_by_column
 from data.data_columns import data_columns
 from data.data_categorical_columns import categorical_columns
 
+def prepare_data():
+    df = dataParallelization()
+    df = columns_type_casting(df)
+    df = filter_data(df)
+    df = categorical_to_bin_vector(df)
+    df = Add_Features_Column(df)
+    return df
+
 
 def columns_type_casting(df):
     for column in type_by_column:
         df = df.withColumn(column, df[column].cast(type_by_column[column]))
-    df.withColumn(
-        "resrvation_status_date",
-        df["reservation_status_date"])
+    return df
+
+
+def filter_data(df):
     return df
 
 
