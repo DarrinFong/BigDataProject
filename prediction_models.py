@@ -1,12 +1,12 @@
+# NOTE - ExtractFeaturesImp was acquired from https://www.timlrx.com/2018/06/19/feature-selection-using-feature-importance-score-creating-a-pyspark-estimator/
 from data_prep import prepare_data
 from pyspark.ml.classification import RandomForestClassifier, DecisionTreeClassifier
+import pandas
 
 split = [0.8, 0.2]
 seed = 1234123
 
-def Apply_Random_Forest(df, column, columnIsBinary = True):
-    df = df.withColumn("label", column)
-
+def Apply_Random_Forest(df, columnIsBinary = True):
     # Randomly split data into training and test dataset
     (train_data, test_data) = df.randomSplit(split, seed=seed)
 
@@ -21,12 +21,12 @@ def Apply_Random_Forest(df, column, columnIsBinary = True):
     print ("-------------------\nRandom Forest Evaluation:")
     evaluate_predictions(predictions, columnIsBinary)
     print("Feature Importance:")
-    print(rf_model.featureImportances)
+    test = ExtractFeatureImp(rf_model.featureImportances, df, 'features')
+    with pandas.option_context('display.max_rows', None, 'display.max_columns', None):
+        print(test)
     print("-------------------")
 
-def Apply_Decision_Tree(df, column, columnIsBinary = True):
-    df = df.withColumn("label", column)
-
+def Apply_Decision_Tree(df, columnIsBinary = True):
     # Randomly split data into training and test dataset
     (train_data, test_data) = df.randomSplit(split, seed=seed)
 
@@ -40,7 +40,9 @@ def Apply_Decision_Tree(df, column, columnIsBinary = True):
     print ("-------------------\nDecision Tree Evaluation:")
     evaluate_predictions(predictions, columnIsBinary)
     print("Feature Importance:")
-    print(rf_model.featureImportances)
+    test = ExtractFeatureImp(rf_model.featureImportances, df, 'features')
+    with pandas.option_context('display.max_rows', None, 'display.max_columns', None):
+        print(test)
     print("-------------------")
 
 def extrapolatePositivesNegatives(predictions):
@@ -89,9 +91,18 @@ def evaluate_predictions(predictions, columnIsBinary):
 
     print(evaluation)
 
-df = prepare_data()
-Apply_Random_Forest(df, df.is_repeated_guest, columnIsBinary = True)
-Apply_Decision_Tree(df, df.is_repeated_guest, columnIsBinary = True)
+def ExtractFeatureImp(featureImp, dataset, featuresCol):
+    list_extract = []
+    for i in dataset.schema[featuresCol].metadata["ml_attr"]["attrs"]:
+        list_extract = list_extract + dataset.schema[featuresCol].metadata["ml_attr"]["attrs"][i]
+    varlist = pandas.DataFrame(list_extract)
+    varlist['score'] = varlist['idx'].apply(lambda x: featureImp[x])
+    return(varlist.sort_values('score', ascending = False))
+
+column = 'is_repeated_guest'
+df = prepare_data(column)
+Apply_Random_Forest(df, columnIsBinary = True)
+Apply_Decision_Tree(df, columnIsBinary = True)
 
 # TODO 
 # - Add evaluation for non-binary predictions.

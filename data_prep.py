@@ -7,12 +7,13 @@ from data.data_type_by_column import type_by_column
 from data.data_columns import data_columns
 from data.data_categorical_columns import categorical_columns
 
-def prepare_data():
+def prepare_data(column):
     df = dataParallelization()
     df = columns_type_casting(df)
-    df = filter_data(df)
+    df = df.withColumn("label", df[column])
+    df = filter_data(df, column)
     df = categorical_to_bin_vector(df)
-    df = Add_Features_Column(df)
+    df = manipulate_features_column(df)
     return df
 
 
@@ -22,7 +23,16 @@ def columns_type_casting(df):
     return df
 
 
-def filter_data(df):
+def filter_data(df, column):
+    toDrop = ['reservation_status_date', 'previous_booking_not_canceled']
+    toDrop.append(column)
+    for x in toDrop:
+        if x in data_columns:
+            data_columns.remove(x)
+        if x in categorical_columns:
+            categorical_columns.remove(x)
+        df.drop(x)
+
     return df
 
 
@@ -43,13 +53,11 @@ def categorical_to_bin_vector(df):
     return df_encoded
 
 
-def Add_Features_Column(df):
+def manipulate_features_column(df):
     # Use VectorAssembler to combine all the feature columns into a single vector column
     new_cat_columns = [col + "_vector" for col in categorical_columns]
     columns = [col for col in data_columns if col not in categorical_columns]
     columns.extend(new_cat_columns)
-    columns.remove("reservation_status_date")
-    df = df.drop("reservation_status_date")
     assembler = VectorAssembler(inputCols=columns, outputCol="features", handleInvalid="keep")
     pipeline = Pipeline(stages=[assembler])
     df = pipeline.fit(df).transform(df)
