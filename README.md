@@ -1,4 +1,4 @@
-# Wildfires and its causes
+# Hotel's repeat guest and its profile
 David Bérard - 40004440
 
 Darrin Fong - 27771959 
@@ -6,13 +6,20 @@ Darrin Fong - 27771959
 Loïc Huss - 40000298 
 
 ## Abstract
-In this project, we will analyse a data-set that list the past bookings of 2 hotels. We will use the different information in the table to determine which component have the greatest influence in determining the profil of the customer who is most likely to come back. This can provides business insign on how to invest in marketing strategy or what is your best partnership model to bring long term value to the hotel.
+In this project, we will analyze a data-set that lists the past bookings of 2 hotels. We will use the different information in the table to determine which component has the greatest influence in determining the profile of the customer who is most likely to come back. This can provide business insights on how to invest in marketing strategy or what is your best partnership model to bring long term value to the hotel.
 
-Our data-set can be found on kaggle.com under the name "Hotel booking demand". The given data-sets provide information as to which hotel, when the booking was made, length of stay, the number of adults, children, and/or babies, the number of required parking spaces, the meal preference, and the country of origin, among other things.
+Our data-set can be found on [Kaggle](https://www.kaggle.com/) under the name "Hotel booking demand". The given data-sets provide information as to which hotel, when the booking was made, length of stay, the number of adults, children, and/or babies, the number of required parking spaces, the meal preference, and the country of origin, among other things.
 
-Our prediction is that which hotel, the market segment of the costumer and the costumer type will be the three main driver to determine if a guest is going to be a repeat guest.
+Our prediction is that which hotel, the market segment of the customer and the customer type will be the three main drivers to determine if a guest is going to be a repeat guest.
 
 ## Introduction
+
+Hotels evolve in a competitive market, there are required to take innovative decision to bring customers throught the doors. They use to rely on experience and instict to drive their initiatives but the use of big data analytics is now their first recourse. Websites such as [Booking.com](https://www.booking.com/) have extensive programs using Machine Learning and Data Analitycs to enhance user experience and translate comments to any languages, among other things (See [Booking.ai](https://booking.ai/). 
+
+In this project, we implemented our take on such systems by applying two analysis techniques: Decision Tree and Random Forest. Implementing
+
+------
+
 It is widely assumed that humans are responsible for a majority of the wildfires taking place in the last years. Our hypothesis is that the use of pesticides to reduce the number of conifers in our forest, the increase of campsite usage, the increase in lumber harvesting and the lack of precipitation are contributing to the occurrence and intensity of forest fire. 
 
 To prove our hypothesis, we will use the k-nearest neighbors (KNN) algorithm to create an interface that will evaluate the probability of a wildfire occurring based on a set of information such as weather in the last month, average campsite per kilometer square and forest composition. In parallel, we will use the random forest algorithm to predict the new location of the new occurrences. 
