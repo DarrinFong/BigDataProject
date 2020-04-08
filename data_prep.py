@@ -2,7 +2,7 @@ from pyspark.rdd import RDD
 from pyspark.sql import DataFrame
 from pyspark.ml import Pipeline
 from pyspark.ml.feature import VectorAssembler, StringIndexer, OneHotEncoder
-from data_preparation import dataParallelization
+from data_init import dataParallelization
 from data.data_type_by_column import type_by_column
 from data.data_columns import data_columns
 from data.data_categorical_columns import categorical_columns

@@ -1,11 +1,14 @@
-from data_cleaning import prepare_data
+from data_prep import prepare_data
 from pyspark.ml.classification import RandomForestClassifier, DecisionTreeClassifier
 
-def Apply_Random_Forest(df, column):
+split = [0.8, 0.2]
+seed = 1234123
+
+def Apply_Random_Forest(df, column, columnIsBinary = True):
     df = df.withColumn("label", column)
 
     # Randomly split data into training and test dataset
-    (train_data, test_data) = df.randomSplit([0.7, 0.3], seed=111)
+    (train_data, test_data) = df.randomSplit(split, seed=seed)
 
     # Free up some memory
     # Train RandomForest model
@@ -16,16 +19,17 @@ def Apply_Random_Forest(df, column):
     predictions = rf_model.transform(test_data)
     
     print ("-------------------\nRandom Forest Evaluation:")
-    evaluate_predictions(predictions)
+    evaluate_predictions(predictions, columnIsBinary)
+    print("Feature Importance:")
+    print(rf_model.featureImportances)
     print("-------------------")
 
-def Apply_Decision_Tree(df, column):
+def Apply_Decision_Tree(df, column, columnIsBinary = True):
     df = df.withColumn("label", column)
 
     # Randomly split data into training and test dataset
-    (train_data, test_data) = df.randomSplit([0.8, 0.2], seed=420)
-    
-    # Free up some memory
+    (train_data, test_data) = df.randomSplit(split, seed=seed)
+
     # Train DecisionTree model
     rf = DecisionTreeClassifier(labelCol="label", featuresCol="features")
     rf_model = rf.fit(train_data)
@@ -34,7 +38,9 @@ def Apply_Decision_Tree(df, column):
     predictions = rf_model.transform(test_data)
 
     print ("-------------------\nDecision Tree Evaluation:")
-    evaluate_predictions(predictions)
+    evaluate_predictions(predictions, columnIsBinary)
+    print("Feature Importance:")
+    print(rf_model.featureImportances)
     print("-------------------")
 
 def extrapolatePositivesNegatives(predictions):
@@ -51,7 +57,6 @@ def extrapolatePositivesNegatives(predictions):
         output = possibleOutputs[int(prediction + 2*actual)]
 
         return (output, 1)
-
     positivesNegatives = predictions.rdd.map(lambda x: mapRow(x)).reduceByKey(lambda x, y: x+y).collect()
 
     output = {x[0]: x[1] for x in positivesNegatives}
@@ -61,7 +66,11 @@ def extrapolatePositivesNegatives(predictions):
 
     return output
 
-def evaluate_predictions(predictions):
+def evaluate_predictions(predictions, columnIsBinary):
+    if not columnIsBinary:
+        print ("Sorry, haven't handled non-binary prediction evaluations yet :/")
+        return
+      
     evaluation = extrapolatePositivesNegatives(predictions)
     TP = evaluation['TP']
     TN = evaluation['TN']
@@ -81,5 +90,11 @@ def evaluate_predictions(predictions):
     print(evaluation)
 
 df = prepare_data()
-Apply_Random_Forest(df, df.is_repeated_guest)
-Apply_Decision_Tree(df, df.is_repeated_guest)
+Apply_Random_Forest(df, df.is_repeated_guest, columnIsBinary = True)
+Apply_Decision_Tree(df, df.is_repeated_guest, columnIsBinary = True)
+
+# TODO 
+# - Add evaluation for non-binary predictions.
+#   See: Cohen's Kappa Coefficient, avg accuracy, median etc. 
+# - More data prep. Shouldn't be getting an f1 score of 1/near 1...
+# - Convert featureImportances back to original table names so as to be able to understand what's what
