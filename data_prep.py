@@ -63,3 +63,29 @@ def manipulate_features_column(df):
     df = pipeline.fit(df).transform(df)
 
     return df
+
+def sample_data(df, column, desiredRatio = 0.5):
+    count = df.count()
+    class0 = df.where(df[column] == 0)
+    class0Count = class0.count()
+    class1 = df.where(df[column] == 1)
+    class1Count = class1.count()
+    
+    majority, majorityCount = None, 0
+    minority, minorityCount = None, 0
+    if class0Count >= class1Count:
+        majority = class0
+        majorityCount = class0Count
+        minority = class1
+        minorityCount = class1Count
+    else:
+        majority = class1
+        majorityCount = class1Count
+        minority = class0
+        minorityCount = class0Count
+
+    numToDownsampleTo = desiredRatio * minorityCount / (1-desiredRatio)
+    ratioToSample = numToDownsampleTo / majorityCount
+    sampledMajority = majority.sample(ratioToSample)
+    
+    return sampledMajority.union(minority)

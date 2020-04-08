@@ -1,14 +1,15 @@
 # NOTE - ExtractFeaturesImp was acquired from https://www.timlrx.com/2018/06/19/feature-selection-using-feature-importance-score-creating-a-pyspark-estimator/
-from data_prep import prepare_data
+from data_prep import prepare_data, sample_data
 from pyspark.ml.classification import RandomForestClassifier, DecisionTreeClassifier
 import pandas
 
 split = [0.8, 0.2]
 seed = 1234123
 
-def Apply_Random_Forest(df, columnIsBinary = True):
+def Apply_Random_Forest(df, column, columnIsBinary = True):
     # Randomly split data into training and test dataset
     (train_data, test_data) = df.randomSplit(split, seed=seed)
+    train_data = sample_data(train_data, column)
 
     # Free up some memory
     # Train RandomForest model
@@ -26,9 +27,10 @@ def Apply_Random_Forest(df, columnIsBinary = True):
         print(test)
     print("-------------------")
 
-def Apply_Decision_Tree(df, columnIsBinary = True):
+def Apply_Decision_Tree(df, column, columnIsBinary = True):
     # Randomly split data into training and test dataset
     (train_data, test_data) = df.randomSplit(split, seed=seed)
+    train_data = sample_data(train_data, column)
 
     # Train DecisionTree model
     rf = DecisionTreeClassifier(labelCol="label", featuresCol="features")
@@ -101,8 +103,8 @@ def ExtractFeatureImp(featureImp, dataset, featuresCol):
 
 column = 'is_repeated_guest'
 df = prepare_data(column)
-Apply_Random_Forest(df, columnIsBinary = True)
-Apply_Decision_Tree(df, columnIsBinary = True)
+Apply_Random_Forest(df, column, columnIsBinary = True)
+Apply_Decision_Tree(df, column, columnIsBinary = True)
 
 # TODO 
 # - Add evaluation for non-binary predictions.
