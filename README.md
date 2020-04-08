@@ -6,11 +6,11 @@ Darrin Fong - 27771959
 Loïc Huss - 40000298 
 
 ## Abstract
-Our project consists of a data-set analysis on the past weather, seasonal, pesticide, tourism, and forest industry's impact to the frequency and severity of forest fires in Canada.
+In this project, we will analyse a data-set that list the past bookings of 2 hotels. We will use the different information in the table to determine which component have the greatest influence in determining the profil of the customer who is most likely to come back. This can provides business insign on how to invest in marketing strategy or what is your best partnership model to bring long term value to the hotel.
 
-Our data-set will be drawn from the Canadian National Resource database. The primary data-sets will be the location, severity of forest fires in Canada, daily campsite visits, past weather, forestry data including lumbering and pesticide use.
+Our data-set can be found on kaggle.com under the name "Hotel booking demand". The given data-sets provide information as to which hotel, when the booking was made, length of stay, the number of adults, children, and/or babies, the number of required parking spaces, the meal preference, and the country of origin, among other things.
 
-Our prediction is that the increase use of pesticide, lack of precipitations, increase of campsite usage, and increase in lumber harvesting will contribute on their own to the occurrence and intensity of forest fires.
+Our prediction is that which hotel, the market segment of the costumer and the costumer type will be the three main driver to determine if a guest is going to be a repeat guest.
 
 ## Introduction
 It is widely assumed that humans are responsible for a majority of the wildfires taking place in the last years. Our hypothesis is that the use of pesticides to reduce the number of conifers in our forest, the increase of campsite usage, the increase in lumber harvesting and the lack of precipitation are contributing to the occurrence and intensity of forest fire. 
