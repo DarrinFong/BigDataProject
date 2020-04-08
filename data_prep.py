@@ -24,7 +24,7 @@ def columns_type_casting(df):
 
 
 def filter_data(df, column):
-    toDrop = ['reservation_status_date', 'previous_booking_not_canceled']
+    toDrop = ['reservation_status_date', 'previous_bookings_not_canceled']
     toDrop.append(column)
     for x in toDrop:
         if x in data_columns:
@@ -64,7 +64,7 @@ def manipulate_features_column(df):
 
     return df
 
-def sample_data(df, column, desiredRatio = 0.5):
+def sample_data(df, column, desiredRatio=0.9):
     count = df.count()
     class0 = df.where(df[column] == 0)
     class0Count = class0.count()
