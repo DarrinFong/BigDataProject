@@ -1,16 +1,13 @@
 # NOTE - ExtractFeaturesImp was acquired from https://www.timlrx.com/2018/06/19/feature-selection-using-feature-importance-score-creating-a-pyspark-estimator/
-from data_prep import prepare_data, sample_data
+from data_prep import prepare_data, sample_data, sampleBooleanColumn_data
 from pyspark.ml.classification import RandomForestClassifier, DecisionTreeClassifier
 import pandas
 from datetime import datetime
+from collections import OrderedDict
+import simplejson as json
 
-split = [0.7, 0.3]
-seed = datetime.now().microsecond
 
-def Apply_Random_Forest(df, column, columnIsBinary=True, numTrees=10, maxDepth=5):
-    # Randomly split data into training and test dataset
-    (train_data, test_data) = df.randomSplit(split, seed=seed)
-    train_data = sample_data(train_data, column)
+def Apply_Random_Forest(train_data, test_data, column, columnIsBinary=True, numTrees=10, maxDepth=5):
 
     # Free up some memory
     # Train RandomForest model
@@ -19,7 +16,7 @@ def Apply_Random_Forest(df, column, columnIsBinary=True, numTrees=10, maxDepth=5
 
     # Make predictions on test data
     predictions = rf_model.transform(test_data)
-    
+
     print("-------------------\nRandom Forest Evaluation, T=" + str(numTrees) + ", mD=" + str(maxDepth))
     evaluate_predictions(predictions, columnIsBinary)
     print("Feature Importance:")
@@ -28,10 +25,7 @@ def Apply_Random_Forest(df, column, columnIsBinary=True, numTrees=10, maxDepth=5
         print(test)
     print("-------------------")
 
-def Apply_Decision_Tree(df, column, columnIsBinary = True, maxDepth=5):
-    # Randomly split data into training and test dataset
-    (train_data, test_data) = df.randomSplit(split, seed=seed)
-    train_data = sample_data(train_data, column)
+def Apply_Decision_Tree(train_data, test_data, column, columnIsBinary=True, maxDepth=5):
 
     # Train DecisionTree model
     rf = DecisionTreeClassifier(labelCol="label", featuresCol="features", maxDepth=maxDepth)
@@ -64,7 +58,9 @@ def extrapolatePositivesNegatives(predictions):
         return (output, 1)
     positivesNegatives = predictions.rdd.map(lambda x: mapRow(x)).reduceByKey(lambda x, y: x+y).collect()
 
-    output = {x[0]: x[1] for x in positivesNegatives}
+    output = OrderedDict()
+    for x in positivesNegatives:
+        output[x[0]] = x[1]
     for x in possibleOutputs:
         if (x not in output):
             output[x] = 0
@@ -92,24 +88,28 @@ def evaluate_predictions(predictions, columnIsBinary):
     evaluation['recall'] = recall
     evaluation['f1_score'] = f1_score
 
-    print(evaluation)
+    print(json.dumps(evaluation, indent=4))
 
-def ExtractFeatureImp(featureImp, dataset, featuresCol):
+def ExtractFeatureImp(featureImp, dataset, featuresCol, topCount=10):
     list_extract = []
     for i in dataset.schema[featuresCol].metadata["ml_attr"]["attrs"]:
         list_extract = list_extract + dataset.schema[featuresCol].metadata["ml_attr"]["attrs"][i]
     varlist = pandas.DataFrame(list_extract)
     varlist['score'] = varlist['idx'].apply(lambda x: featureImp[x])
-    return(varlist.sort_values('score', ascending=False))
+    return(varlist.sort_values('score', ascending=False)[0:topCount])
 
+
+split = [0.7, 0.3]
+seed = datetime.now().microsecond
 column = 'is_repeated_guest'
+
 df = prepare_data(column)
+train_data, test_data = sampleBooleanColumn_data(df, column, seed, split=split)
 
+Apply_Random_Forest(train_data, test_data, column, columnIsBinary=True, numTrees=10, maxDepth=10)
+Apply_Decision_Tree(train_data, test_data, column, columnIsBinary=True, maxDepth=10)
 
-Apply_Random_Forest(df, column, columnIsBinary=True, numTrees=10, maxDepth=10)
-#Apply_Decision_Tree(df, column, columnIsBinary=True, maxDepth=20)
-
-# TODO 
+# TODO
 # - Add evaluation for non-binary predictions.
 #   See: Cohen's Kappa Coefficient, avg accuracy, median etc. 
 # - More data prep. Shouldn't be getting an f1 score of 1/near 1...

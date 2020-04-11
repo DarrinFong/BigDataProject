@@ -24,7 +24,8 @@ def columns_type_casting(df):
 
 
 def filter_data(df, column):
-    toDrop = ['reservation_status_date', 'previous_bookings_not_canceled']
+    #toDrop = ['reservation_status_date', 'previous_bookings_not_canceled']
+    toDrop = ['reservation_status_date']
     toDrop.append(column)
     for x in toDrop:
         if x in data_columns:
@@ -63,6 +64,18 @@ def manipulate_features_column(df):
     df = pipeline.fit(df).transform(df)
 
     return df
+
+
+def sampleBooleanColumn_data(df, column, seed, split=[0.7, 0.3]):
+    p = df.where(df[column] == 0)
+    n = df.where(df[column] == 1)
+
+    pTrain, pTest = p.randomSplit(split, seed=seed)
+    nTrain, nTest = n.randomSplit(split, seed=seed)
+
+    train, test = pTrain.union(nTrain), pTest.union(nTest)
+    return train, test
+
 
 def sample_data(df, column, desiredRatio=0.9):
     count = df.count()
