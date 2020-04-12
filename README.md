@@ -35,7 +35,9 @@ For all of the databases mentioned above, we will have to get the latitude and l
 Dataset analysis: select a dataset (for instance from your research) and apply at least two techniques seen in the course using Apache Spark, Dask or scikit-learn. You are not required to re-implement these techniques, but you need to discuss and interpret the results.
 
 ## References
-- The following link contains the information about the technology chosen by the team, as you can see it supports classification, regression, and clustering which supports our underlying algorithms. : https://scikit-learn.org/stable/
-- More specifically for random forest : https://scikit-learn.org/stable/modules/ensemble.html#forests-of-randomized-trees
-- More specifically for k-nearest neighbors (KNN) : https://scikit-learn.org/stable/modules/neighbors.html
-- The following link contains a dataset that enables us to analyse wildfire data in canada in terms of number of fires by jurisdiction, cause class, response category, and protection zone. : http://www.nfdp.ccfm.org/en/data/fires.php
+- "Overview - Spark 2.4.5 Documentation - Apache Spark." https://spark.apache.org/docs/latest/. Accessed 1 Apr. 2020. Antonio, N. and Almeida, A. and Nunes, L. (2019) ‘Hotel booking demand datasets’ in Data in Brief, Vol. 22, pp 41-49. 
+- "Hotel booking demand | Kaggle." 13 Feb. 2020, https://www.kaggle.com/jessemostipak/hotel-booking-demand. Accessed 1 Apr. 2020.
+- "Classification and regression - RandomForestClassifier - Apache Spark." https://spark.apache.org/docs/latest/ml-classification-regression.html#random-forest-classifier. Accessed 1 Apr. 2020.
+- "Classification and regression - DecisionTreeClassifier - Apache Spark." https://spark.apache.org/docs/latest/ml-classification-regression.html#decision-tree-classifier. Accessed 1 Apr. 2020.
+- "StringIndexer - Apache Spark." https://spark.apache.org/docs/latest/ml-features. Accessed 1 Apr. 2020.
+- "Extracting, transforming and selecting features - OneHotEncoder - Apache Spark." https://spark.apache.org/docs/latest/ml-features#onehotencoder. Accessed 1 Apr. 2020. 
