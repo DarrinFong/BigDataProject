@@ -14,15 +14,9 @@ Our prediction is that which hotel, the market segment of the customer and the c
 
 ## Introduction
 
-Hotels evolve in a competitive market, there are required to take innovative decision to bring customers throught the doors. They use to rely on experience and instict to drive their initiatives but the use of big data analytics is now their first recourse. Websites such as [Booking.com](https://www.booking.com/) have extensive programs using Machine Learning and Data Analitycs to enhance user experience and translate comments to any languages, among other things (See [Booking.ai](https://booking.ai/). 
+Hotels evolve in a competitive market, there are required to take innovative decision to bring customers through the doors. They use to rely on experience and instinct to drive their initiatives but the use of big data analytics is now their first recourse. Websites such as [Booking.com](https://www.booking.com/) have extensive programs using Machine Learning and Data Analytics to enhance user experience and translate comments to any languages, among other things (See [Booking.ai](https://booking.ai/)).
 
-In this project, we implemented our take on such systems by applying two analysis techniques: Decision Tree and Random Forest. Implementing
-
-------
-
-It is widely assumed that humans are responsible for a majority of the wildfires taking place in the last years. Our hypothesis is that the use of pesticides to reduce the number of conifers in our forest, the increase of campsite usage, the increase in lumber harvesting and the lack of precipitation are contributing to the occurrence and intensity of forest fire. 
-
-To prove our hypothesis, we will use the k-nearest neighbors (KNN) algorithm to create an interface that will evaluate the probability of a wildfire occurring based on a set of information such as weather in the last month, average campsite per kilometer square and forest composition. In parallel, we will use the random forest algorithm to predict the new location of the new occurrences. 
+In this project, we implemented our take on such systems by applying two analysis techniques: Decision Tree and Random Forest. By implementing those techniques, we will, on one hand, answer the question "What are the features influencing most our ability to predict if a customer will become a repeat-guest?" and, on the other, provide insight on which technique provides the most accurate predictions.
 
 The two algorithms briefly described above will build the foundation for a deeper understanding of our case study. Based on those models, we will be able to determine the impact of each component and their proponents in creating an occurrence.   
 
