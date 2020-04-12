@@ -25,6 +25,7 @@ def columns_type_casting(df):
 
 def filter_data(df, column):
     #toDrop = ['reservation_status_date', 'previous_bookings_not_canceled']
+    #toDrop = ['reservation_status_date', 'previous_bookings_not_canceled', 'country', 'assigned_room', 'reserved_room_type']
     toDrop = ['reservation_status_date']
     toDrop.append(column)
     for x in toDrop:

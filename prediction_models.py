@@ -108,6 +108,8 @@ train_data, test_data = sampleBooleanColumn_data(df, column, seed, split=split)
 
 Apply_Random_Forest(train_data, test_data, column, columnIsBinary=True, numTrees=10, maxDepth=10)
 Apply_Decision_Tree(train_data, test_data, column, columnIsBinary=True, maxDepth=10)
+#Apply_Random_Forest(train_data, test_data, column, columnIsBinary=True, numTrees=10, maxDepth=30)
+#Apply_Decision_Tree(train_data, test_data, column, columnIsBinary=True, maxDepth=10)
 
 # TODO
 # - Add evaluation for non-binary predictions.
