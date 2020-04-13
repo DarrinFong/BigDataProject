@@ -15,7 +15,7 @@ type_by_column = {
     "country": "string",
     "market_segment": "string",
     "distribution_channel": "string",
-    "is_repeated_guest": "boolean",
+    "is_repeated_guest": "integer",
     "previous_cancellations": "integer",
     "previous_bookings_not_canceled": "integer",
     "reserved_room_type": "string",

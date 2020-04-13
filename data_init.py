@@ -7,7 +7,8 @@ def initSpark():
     spark = SparkSession \
         .builder \
         .appName("Python Spark SQL basic example") \
-        .config("spark.some.config.option", "some-value") \
+        .config('spark.executor.memory', '32g') \
+        .config('spark.driver.memory', '32g') \
         .getOrCreate()
     return spark
 
