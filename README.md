@@ -32,6 +32,8 @@ After the minimal data cleaning, we had to transform the data such that it can b
 
 After the first conversion, we had to convert the values once more into one-hot vectors using pyspark’s OneHotEncoder. The reason for this conversion is because our prediction model will assume a continuous relationship between indices and potentially falsify results. For example, for a given categorical column with values A = apple, B = banana, and C = cake, StringIndexer will attribute values to categories as followed: A = 1, B = 2, and C = 3. This is acceptable for categories that have a linear relationship between them, but we can see this technique falls apart when no such relationship exists; in this case it implies the average between an apple and a cake is a banana (1+32=2). After these two conversions, the resulting numerical data columns and the One-Hot vector columns are merged into the ‘features’ column by the VectorAssembler so the data can be used in pyspark.ml.classification’s classifiers.
 
+![](./report_figures/1.png)
+
 Figure 1: Categorical values, Index values, OneHot vector values
 
 ### Data sampling
@@ -44,22 +46,34 @@ In order to preserve as many data points as possible, we modified our sampling m
 ### Decision Tree classifier
 Using the first, unchanged schema with a Decision Tree, it quickly came to our attention that the model was heavily over-specified to the column we were predicting, inherently making it useless. We decided to remove the is_repeated_guest column for the next schema.
 
+![](./report_figures/dt_1.png)
+
 Figure 2: DT schema 1
 
 After running the second schema, we noticed strikingly good results including near perfect accuracy and a very good f1_score. However, when looking at the feature importances we noticed that the model was once again over-specified on a single column. This time, the model was basing itself on the previous_bookings_ not_canceled column. Logically this makes sense, since any returning guest would have to have a previous reservation which was not canceled. However, this once again made the model somewhat useless, so we decided to remove the column in question. It must be noted that the accuracy rating is skewed by the fact that the initial data has a much larger negative than positive ratio in general, and as such would have high accuracy even if the whole dataset was predicted to be negative. 
 For our third schema we then removed all columns without any feature importances above 0.0001. However, this barely impacted the f1 score. In a last attempt to improve the model, we decided to adjust the maximum depth of the tree to generate ideal results, keeping in mind that too deep of a tree may result in over-specification to this schema. To avoid this, we decided on a feature importance cutoff of 0.2, which after testing gave us an ideal max depth of 10.
 
+![](./report_figures/dt_2.png)
+
 Figure 3: DT schema 2
+
+![](./report_figures/dt_3.png)
 
 Figure 4: DT schema 3
 
 ### Random Forest classifier
 
+![](./report_figures/rf_1.png)
+
 Figure 5: RF schema 1
+
+![](./report_figures/rf_2.png)
 
 Figure 6: RF schema 2
 
 In the case of the Random Forest classifier, a similar analysis was conducted. In the first and second models we noticed similar over-specification being done to the is_repeated_ guest and previous_bookings_not_canceled columns, albeit to a lesser degree. This fits with what we expected to happen and reinforces our decision to also use random forest to act as a countermeasure to over-specification. Like what was done with the Decision Tree, for our third model we first attempted to remove columns under a certain feature importance threshold, which once again did not much impact our results. Thereafter we altered the number of trees and the max depth of each tree to improve our f1 score. The maximum f1 score we were able to achieve with our third model of data selection was with 10 trees and a max depth of 30.
+
+![](./report_figures/rf_3.png)
 
 Figure 7: RF schema 3
 
