@@ -1,14 +1,9 @@
 # Hotel's repeat guest and its profile
-### SOEN 499 : Big Data Analytics (W2020)
-### Concordia University - Department of Computer-Science and Software Engineering
 
 ### Presented by:
 | David Bérard - 40004440
 | Darrin Fong - 27771959
 | Loïc Huss - 40000298
-
-### Presented to:
-Glatard, T., Associate Professor. April 12, 2020
 
 ## Abstract
 In this project, we will analyze a dataset that lists the past bookings of 2 hotels. We will use the different information in the table to determine which booking parameter has the greatest influence on whether the hotel customer is a returning customer. This can provide business insights on how to invest in marketing strategy or what is the best partnership model to bring long term value to the hotel.
