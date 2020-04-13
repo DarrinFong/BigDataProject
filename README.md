@@ -1,5 +1,5 @@
 # Hotel's repeat guest and its profile
-
+[Online version of the report](https://docs.google.com/document/d/1hddAeCPF6RM-Zv0rVOSRht2OsHSfIwwb6tfjouBXln0/edit?usp=sharing)
 ### Presented by:
 | David Bérard - 40004440
 | Darrin Fong - 27771959
